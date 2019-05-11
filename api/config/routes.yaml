@@ -12,4 +12,5 @@ certificates:
 
 certificatesPDF:
   path: /certificates/generator
+  methods: [POST]
   controller: App\Controller\App::certificatesPDF
