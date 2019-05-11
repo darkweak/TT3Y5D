@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Doctor;
+use App\Entity\Postcode;
 use App\Helpers\PDF;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
@@ -12,11 +15,14 @@ class App
 	const TYPE_CHOICES = ['work', 'school', 'sport', 'swim', 'validationSport'];
 	const DEFAULT_BLANK_FIELD = '............';
 	const DEFAULT_MARGIN = 10;
-	private $environment;
 
-	public function __construct(Environment $environment)
+	private $environment;
+	private $manager;
+
+	public function __construct(Environment $environment, EntityManagerInterface $manager)
 	{
 		$this->environment = $environment;
+		$this->manager = $manager;
 	}
 
 	private function render(string $template, array $options = []): Response
@@ -41,13 +47,29 @@ class App
 
 	public function certificates(): Response
 	{
-		return $this->render('certificates');
+		return $this->render('certificates', [
+			'postcodes' => $this->manager->getRepository(Postcode::class)->findAll()
+		]);
 	}
 
 	public function certificatesPDF(Request $request): Response
 	{
-		//\var_dump($request->request->all());
-		//die();
+		$doctor = null;
+
+		if ('titulary' === $request->request->get('inlineRadioOptions') && $request->request->get('doctorSelector')) {
+			$doctors = $this->manager->getRepository(Doctor::class)->findBy(['postcode' => $request->request->get('doctorSelector')]);
+			$doctor = $doctors[rand(0, count($doctors) - 1)];
+		}
+
+		if (!$doctor) {
+			$doctor = new Doctor();
+			$doctor
+				->setPostcode($request->request->get('postcode'))
+				->setCity($request->request->get('doctorcity'))
+				->setFirstname('Béatrice')
+				->setPhone('06 48 59 70 58')
+				->setLastname('DUCHAUSSOY');
+		}
 
 		$disease = 'school' === $request->request->get('type') ? "<strong>{$request->request->get('disease')}</strong>" : self::DEFAULT_BLANK_FIELD;
 		$sport = 'validationSport' === $request->request->get('type') ? "<strong>{$request->request->get('disease')}</strong>" : self::DEFAULT_BLANK_FIELD;
@@ -65,6 +87,7 @@ class App
 				$this->generateEnvironment(
 					'certificatesPDF',
 					[
+						'doctor' => $doctor,
 						'infos' => $request->request->all(),
 						'listChoices' => $listChoices,
 						'typeChoices' => self::TYPE_CHOICES
@@ -75,11 +98,11 @@ class App
 		$checkboxes = [80, 101, 122, 144, 159];
 
 		$informations = $this->generateImage(
-			$request->request->get('doctorName') ?: 'DUCHAUSSOY',
-			$request->request->get('doctorcity'),
-			$request->request->get('postcode'),
-			'N° Ordre : 015 215 632',
-			true
+			$doctor->getLastname(),
+			$doctor->getCity(),
+			$doctor->getPostcode(),
+			$doctor->getPhone(),
+			'replace' === $request->request->get('inlineRadioOptions')
 		);
 
 		$randomX = rand(85, 95);
@@ -95,10 +118,8 @@ class App
 		$pdf->setImage($informations, $randomX, $randomY, 70, 25);
 		$pdf->stopTransform();
 		$pdf->transform($randomRotateSign, $randomXSign + $randomWidthSign, $randomYSign + $randomHeightSign);
-		$pdf->setImage($this->generateSignature('Duchaussoy'), $randomXSign,$randomYSign,$randomWidthSign,$randomHeightSign);
+		$pdf->setImage($this->generateSignature(strtolower($doctor->getLastname())), $randomXSign,$randomYSign,$randomWidthSign,$randomHeightSign);
 		$pdf->stopTransform();
-
-		//$pdf->setImage(PDF::BASE_RESOURCES.'cadre.png', 74,9,78,44);
 
 		foreach ($checkboxes as $checkbox) {
 			$pdf->setCheckbox($checkbox);
@@ -138,10 +159,10 @@ class App
 	): string
 	{
 		$infos = [
-			"Docteur DUCHAUSSOY",
+			"Docteur {$name}",
 			'01 MÉDECINE GÉNÉRALE',
-			'51100 REIMS',
-			'Tél. 06 06 06 06 06',
+			"{$code} {$place}",
+			"Tél. {$phone}",
 			'N° Ordre : 015 215 632'
 		];
 

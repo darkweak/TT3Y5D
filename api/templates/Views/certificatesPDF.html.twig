@@ -6,7 +6,7 @@
     </tr>
     <tr><td colspan="2" style="font-size: 7px">Délivré sur la demande du patient et remis en main propres</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td colspan="2"></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td colspan="2">à : {{ infos.doctorcity }}</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td colspan="2">à : {{ doctor.city }}</td><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td colspan="2">le : {{ "now"|date("m/d/Y") }}</td><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td colspan="2"></td><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td colspan="2"></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -15,7 +15,7 @@
 
 <div>
     <table>
-        <tr><td colspan="4">Je soussigné <strong>{{ infos.doctorName|default('Béatrice DUCHAUSSOY') }}</strong></td></tr>
+        <tr><td colspan="4">Je soussigné <strong>{{ doctor.lastname ~ ' ' ~ doctor.firstname }}</strong></td></tr>
         <tr><td colspan="2">certifie, après examen, que {{ infos.sex }} <strong>{{ infos.lastname }} {{ infos.firstname }}</strong></td></tr>
         <tr><td colspan="2"></td></tr>
     </table>

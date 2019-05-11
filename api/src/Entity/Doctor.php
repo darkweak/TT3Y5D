@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Traits\IdTrait;
+use App\Repository\DoctorRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=DoctorRepository::class)
  */
 class Doctor
 {

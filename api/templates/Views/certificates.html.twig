@@ -54,9 +54,39 @@
                 </div>
 
             </div>
-            <div class="row" id="replace">
-                <div class="col-sm-12 text-center dropdown-divider">
+            <div class="col-sm-12 text-center dropdown-divider">
+            </div>
+            <div class="row">
+                <div class="form-group col-12 justify-content-around d-flex">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="titularyOption" value="titulary">
+                        <label class="form-check-label" for="titularyOption">Titulary doctor</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="replaceOption" value="replace" checked>
+                        <label class="form-check-label" for="replaceOption">Replacement doctor</label>
+                    </div>
                 </div>
+            </div>
+            <div class="row d-none" id="titulary">
+                <div class="col-sm-12 text-center">
+                    <span>Pick nearest postcode from you to get random doctor exercising in the selected area</span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="doctorSelector">Postcode</label>
+                    <select class="form-control" name="doctorSelector">
+                        <option value="false">
+                            Select a postcode
+                        </option>
+                        {% for postcode in postcodes %}
+                            <option value="{{ postcode.postcode }}">
+                                {{ postcode.postcode }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row" id="replace">
                 <div class="col-sm-12 text-center">
                     <span>Informations about your doctor</span>
                 </div>
@@ -77,7 +107,6 @@
                     <label for="exampleInputPassword1">Office city</label>
                     <input type="text" class="form-control replace" placeholder="Office city" name="doctorcity">
                 </div>
-
             </div>
             <div class="col-sm-12 text-center py-2">
                 <button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -88,7 +117,6 @@
 
 {% block javascript %}
 function modifyText() {
-
   let type = document.getElementById("type");
   let value = 'Disease';
 
@@ -99,4 +127,15 @@ function modifyText() {
   document.getElementById("choice").innerText = value;
   document.getElementById("choice2").setAttribute("placeholder", value);
 }
+
+document.getElementsByName('inlineRadioOptions').forEach(element => {
+  element.addEventListener('change', (event) => {
+    document.getElementById(event.target.value).classList.remove('d-none');
+    if ('titulary' === event.target.value) {
+      document.getElementById('replace').classList.add('d-none');
+    } else {
+      document.getElementById('titulary').classList.add('d-none');
+    }
+  })
+})
 {% endblock %}
