@@ -1,0 +1,79 @@
+version: '3.4'
+
+x-network:
+  &network
+  networks:
+    - fire
+
+x-cache:
+  &cache
+  cache_from:
+    - ${CONTAINER_REGISTRY_BASE}/php
+    - ${CONTAINER_REGISTRY_BASE}/nginx
+    - ${CONTAINER_REGISTRY_BASE}/varnish
+
+services:
+  php:
+    image: ${CONTAINER_REGISTRY_BASE}/php
+    build:
+      context: ./api
+      target: api_platform_php
+      <<: *cache
+    environment:
+      - APP_ENV=${APP_ENV}
+      - CORS_ALLOW_ORIGIN=^${HTTP_OR_SSL}${DOMAIN}$$
+      - TRUSTED_HOSTS=^(www\.)?${DOMAIN}$$
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASS}@db/${DB_NAME}
+    depends_on:
+      - db
+    env_file:
+      - ./api/.env
+    volumes:
+      - ./api:/srv/api:rw,cached
+    <<: *network
+
+  api:
+    image: ${CONTAINER_REGISTRY_BASE}/nginx
+    build:
+      context: ./api
+      target: api_platform_nginx
+      <<: *cache
+    depends_on:
+      - php
+    volumes:
+      - ./api/public:/srv/api/public:ro
+    <<: *network
+
+  cache-proxy:
+    image: ${CONTAINER_REGISTRY_BASE}/varnish
+    build:
+      context: ./api
+      target: api_platform_varnish
+      <<: *cache
+    depends_on:
+      - api
+    volumes:
+      - ./api/docker/varnish/conf:/usr/local/etc/varnish:ro
+    tmpfs:
+      - /usr/local/var/varnish:exec
+    labels:
+      - traefik.frontend.rule=Host:${DOMAIN},www.${DOMAIN}
+    <<: *network
+
+  db:
+    image: postgres:9.6-alpine
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+    networks:
+      - fire
+
+volumes:
+  db-data: {}
+
+networks:
+  fire:
+    external: true

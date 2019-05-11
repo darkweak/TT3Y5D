@@ -1,0 +1,48 @@
+<div style="height:50px;" >
+</div>
+<table>
+    <tr>
+        <th colspan="2"><h2>CERTIFICAT MEDICAL</h2></th><th colspan="2" rowspan="5" style="font-size: 7px; text-align: center;">signature du médecin</th><th></th><th></th><th></th><th></th>
+    </tr>
+    <tr><td colspan="2" style="font-size: 7px">Délivré sur la demande du patient et remis en main propres</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td colspan="2"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td colspan="2">à : {{ infos.doctorcity }}</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td colspan="2">le : {{ "now"|date("m/d/Y") }}</td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td colspan="2"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td colspan="2"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td colspan="2"></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+
+<div>
+    <table>
+        <tr><td colspan="4">Je soussigné <strong>{{ infos.doctorName|default('Béatrice DUCHAUSSOY') }}</strong></td></tr>
+        <tr><td colspan="2">certifie, après examen, que {{ infos.sex }} <strong>{{ infos.lastname }} {{ infos.firstname }}</strong></td></tr>
+        <tr><td colspan="2"></td></tr>
+    </table>
+</div>
+
+<table>
+    {% for listChoice in listChoices %}
+        <tr>
+            <td>
+                <label>
+                    &nbsp; &nbsp; &nbsp; {{ listChoice|raw }}
+                    {% if loop.last == true %}
+                    {% else %}
+                        {% if infos.type == typeChoices[(loop.index - 1)] %}
+                            <strong>{{ infos.period }}</strong>
+                        {% else %}
+                            ............
+                        {% endif %}
+                        jours
+                    {% endif %}
+                </label>
+                <br/>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+    {% endfor %}
+</table>

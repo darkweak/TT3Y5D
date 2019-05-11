@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1 class="text-center">Please fill out this form to generate the PDF</h1>
+    <div class="container">
+        <form method="post" action="/certificates/generator">
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-5">
+                    <label for="exampleInputEmail1">Last Name</label>
+                    <input type="text" class="form-control" placeholder="Last name" name="lastname" pattern="[A-z]+" required>
+                </div>
+                <div class="form-group col-sm-12 col-md-5 offset-md-2">
+                    <label for="exampleInputPassword1">First Name</label>
+                    <input type="text" class="form-control" placeholder="First name" name="firstname" pattern="[A-z]+" required>
+                </div>
+                <div class="form-group col-sm-12 col-md-5">
+                    <label for="exampleInputPassword1">Period</label>
+                    <input type="text" class="form-control" placeholder="Duration (nb days)" name="period" pattern="[0-9]+" required>
+                </div>
+                <div class="form-group col-sm-12 col-md-5 offset-md-2">
+                    <label for="exampleInputPassword1" id="choice">Disease</label>
+                    <input type="text" id="choice2" class="form-control" placeholder="Disease" name="disease" required>
+                </div>
+                <div class="form-group col-sm-12 col-md-5">
+                    <label for="exampleInputPassword1">Sex</label>
+                    <select class="form-control" name="sex" required>
+                        <option value="Mr">
+                            Mr.
+                        </option>
+                        <option value="Mme">
+                            Mme.
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-12 col-md-5 offset-md-2">
+                    <label for="exampleInputPassword1">Certificate type</label>
+                    <select class="form-control" id="type" name="type" onchange="modifyText()" required>
+                        <option value="work">
+                            Work
+                        </option>
+                        <option value="school">
+                            School
+                        </option>
+                        <option value="sport">
+                            Sport (exemption)
+                        </option>
+                        <option value="swim">
+                            Swimming
+                        </option>
+                        <option value="validationSport">
+                            Sport (participation)
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="row" id="replace">
+                <div class="col-sm-12 text-center dropdown-divider">
+                </div>
+                <div class="col-sm-12 text-center">
+                    <span>Informations about your doctor</span>
+                </div>
+                <div style="height:50px;" ></div>
+                <div class="form-group col-md-5">
+                    <label for="exampleInputEmail1">Doctor street</label>
+                    <input type="text" class="form-control replace" placeholder="Rue de votre médecin" name="doctorstreet">
+                </div>
+                <div class="form-group col-md-5 offset-md-2">
+                    <label for="exampleInputPassword1">Street number</label>
+                    <input type="text" class="form-control replace" placeholder="Street number office" name="doctornumber" pattern="[0-9]+">
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="exampleInputPassword1">Postcode</label>
+                    <input type="text" class="form-control replace" placeholder="Postcode" name="postcode" pattern="[0-9]+">
+                </div>
+                <div class="form-group col-md-5 offset-md-2">
+                    <label for="exampleInputPassword1">Office city</label>
+                    <input type="text" class="form-control replace" placeholder="Office city" name="doctorcity">
+                </div>
+
+            </div>
+            <div class="col-sm-12 text-center py-2">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+function modifyText() {
+
+  let type = document.getElementById("type");
+  let value = 'Disease';
+
+  if (4 === type.selectedIndex){
+    value = 'Sport participation';
+  }
+
+  document.getElementById("choice").innerText = value;
+  document.getElementById("choice2").setAttribute("placeholder", value);
+}
+{% endblock %}
