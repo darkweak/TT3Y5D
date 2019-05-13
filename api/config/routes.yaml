@@ -4,13 +4,22 @@
 
 welcome:
   path: /
-  controller: App\Controller\App::welcome
+  controller: App\Controller\Welcome
 
 certificates:
   path: /certificates
-  controller: App\Controller\App::certificates
+  controller: App\Controller\Certificate::certificates
 
 certificatesPDF:
   path: /certificates/generator
   methods: [POST]
-  controller: App\Controller\App::certificatesPDF
+  controller: App\Controller\Certificate::certificatesPDF
+
+orders:
+  path: /orders
+  controller: App\Controller\Orders::orders
+
+ordersPDF:
+  path: /orders/generator
+  methods: [POST]
+  controller: App\Controller\Orders::ordersPDF

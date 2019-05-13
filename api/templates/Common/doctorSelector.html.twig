@@ -1,0 +1,53 @@
+<div class="col-sm-12 text-center dropdown-divider">
+</div>
+<div class="form-group col-12 justify-content-around d-flex">
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="titularyOption" value="titulary">
+        <label class="form-check-label" for="titularyOption">Titulary doctor</label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="replaceOption" value="replace" checked>
+        <label class="form-check-label" for="replaceOption">Replacement doctor</label>
+    </div>
+</div>
+<div class="row m-0 w-100 d-none" id="titulary">
+    <div class="col-12 text-center">
+        <span>Pick nearest postcode from you to get random doctor exercising in the selected area</span>
+    </div>
+    <div class="form-group col-md-5">
+        <label for="doctorSelector">Postcode</label>
+        <select class="form-control" name="doctorSelector">
+            <option value="">
+                Select a postcode
+            </option>
+            {% for postcode in postcodes %}
+                <option value="{{ postcode.postcode }}">
+                    {{ postcode.postcode }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div class="row m-0" id="replace">
+    <div class="col-sm-12 text-center">
+        <span>Informations about your doctor</span>
+    </div>
+    <div style="height:50px;" ></div>
+    <div class="form-group col-md-5">
+        <label for="exampleInputEmail1">Doctor street</label>
+        <input type="text" class="form-control" placeholder="Rue de votre médecin" name="doctorstreet" required>
+    </div>
+    <div class="form-group col-md-5 offset-md-2">
+        <label for="exampleInputPassword1">Street number</label>
+        <input type="text" class="form-control" placeholder="Street number office" name="doctornumber" pattern="[0-9]+" required>
+    </div>
+    <div class="form-group col-md-5">
+        <label for="exampleInputPassword1">Postcode</label>
+        <input type="text" class="form-control" placeholder="Postcode" name="postcode" pattern="[0-9]+" required>
+    </div>
+    <div class="form-group col-md-5 offset-md-2">
+        <label for="exampleInputPassword1">Office city</label>
+        <input type="text" class="form-control" placeholder="Office city" name="doctorcity" required>
+    </div>
+</div>
+

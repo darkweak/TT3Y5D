@@ -1,0 +1,33 @@
+document.getElementsByName('inlineRadioOptions').forEach(element => {
+    element.addEventListener('change', (event) => {
+        let selectedElements = document.getElementById(event.target.value);
+        selectedElements.classList.remove('d-none');
+        setAttributesToInputsChildren(selectedElements)
+        if ('titulary' === event.target.value) {
+            let replace = document.getElementById('replace')
+            replace.classList.add('d-none');
+            setAttributesToInputsChildren(replace, false)
+        } else {
+            let titulary = document.getElementById('titulary')
+            titulary.classList.add('d-none');
+            setAttributesToInputsChildren(titulary, false)
+        }
+    })
+});
+
+function setAttributesToInputsChildren(elements, value = true) {
+    elements.querySelectorAll('div > input').forEach(elt => {
+        if(value) {
+          elt.setAttribute('required', true)
+        } else {
+          elt.removeAttribute('required')
+        }
+    });
+    elements.querySelectorAll('div > select').forEach(elt => {
+        if(value) {
+          elt.setAttribute('required', true)
+        } else {
+          elt.removeAttribute('required')
+        }
+    });
+}

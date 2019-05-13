@@ -1,0 +1,166 @@
+{% set default_colspan = 4 %}
+<table>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: bold; font-size: 1em; text-align: center">Docteur {{ doctor.firstname ~ ' ' ~ doctor.lastname }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: lighter; font-style: italic; font-size: 0.5em; text-align: center">de la Faculté de Médecine de {{ doctor.city }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: bold; font-size: 0.8em; text-align: center">Médecin Agréé</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr style="height: 2em;"><td></td></tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: lighter; font-size: 0.8em; text-align: center;">MEDECINE GENERALE</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: lighter; font-size: 0.8em; text-align: center;">Consultations tous les jours sur rendez-vous</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: bold; font-size: 0.8em; text-align: center;">44 1 02796 8 - RPPS 10002509155</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr style="height: 5em;"><td></td></tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: bold; font-size: 0.8em">CABINET MEDICAL</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: lighter; font-size: 0.6em">{{ doctor.street }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="{{ default_colspan }}" style="font-weight: lighter; font-size: 0.6em">{{ doctor.postcode }} {{ doctor.city }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="1" style="font-weight: lighter; font-size: 0.6em">Tel.: {{ doctor.phone }}</td>
+        <td colspan="1" style="font-weight: lighter; font-size: 0.6em">URGENCES : 15</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr style="height: 3em;"><td></td></tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2" style="font-weight: lighter; font-size: 0.6em">{{ infos.lastname }} {{ infos.firstname }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2" style="font-weight: lighter; font-size: 0.6em">{{ user.years }} ans et {{ user.months }} mois</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td colspan="2" style="font-weight: lighter; font-size: 0.6em">Fait le {{ date[0] }} {{ date[1] }} {{ date[2] }} {{ date[3] }}</td>
+        <td></td>
+    </tr>
+    <tr style="height:3rem"><td></td></tr>
+    <tr style="height:3rem"><td></td></tr>
+    {% for drug in infos.drugs %}
+        <tr>
+            <td></td>
+            <td colspan="{{ default_colspan }}" style="font-weight: bold; font-size: 1em; text-decoration: underline;">{{ loop.index }} - {{ drug.name }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td colspan="{{ default_colspan }}" style="font-size: 0.8em;">{{ drug.type }} {{ drug.number }} fois par jour pendant {{ drug.time }} jours</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    <tr style="height:3rem"><td></td></tr>
+    <tr style="height:3rem"><td></td></tr>
+    <tr style="height:3rem"><td></td></tr>
+    <tr style="height:3rem"><td></td></tr>
+    <tr>
+        <td></td>
+        <td colspan="4" style="font-weight: lighter; font-size: 0.6em; text-align: right">Nombre de médicaments prescrits : {{ infos.drugs|length }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr style="height:3rem"><td></td></tr>
+    <tr>
+        <td colspan="7" style="font-weight: lighter; font-size: 0.6em">Membre d'une association agréée. Règlement des honoraires par chèques acceptés.</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
