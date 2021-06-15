@@ -16,10 +16,12 @@ spec:
     spec:
       containers:
         - name: tt3y5d-php
-          image: tt3y5d-php
+          image: tt3y5d-php:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 9000
         - name: tt3y5d-api
-          image: tt3y5d-api
+          image: tt3y5d-api:latest
+          imagePullPolicy: Never
           ports:
             - containerPort: 80
