@@ -15,7 +15,11 @@ spec:
         app: tt3y5d
     spec:
       containers:
-        - name: tt3y5d
-          image: tt3y5d
+        - name: tt3y5d-php
+          image: tt3y5d-php
+          ports:
+            - containerPort: 9000
+        - name: tt3y5d-api
+          image: tt3y5d-api
           ports:
             - containerPort: 80

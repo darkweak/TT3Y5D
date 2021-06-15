@@ -133,8 +133,8 @@ COPY --from=api_platform_php /srv/api/public ./
 
 # "varnish" stage
 # does not depend on any of the above stages, but placed here to keep everything in one Dockerfile
-FROM varnish:${VARNISH_VERSION} AS api_platform_varnish
-
-COPY docker/varnish/conf/default.vcl /etc/varnish/default.vcl
-
-CMD ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-p", "http_resp_hdr_len=65536", "-p", "http_resp_size=98304"]
+# FROM varnish:${VARNISH_VERSION} AS api_platform_varnish
+#
+# COPY docker/varnish/conf/default.vcl /etc/varnish/default.vcl
+#
+# CMD ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-p", "http_resp_hdr_len=65536", "-p", "http_resp_size=98304"]
