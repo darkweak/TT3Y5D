@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tt3y5d
+  labels:
+    app: tt3y5d
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tt3y5d
+  template:
+    metadata:
+      labels:
+        app: tt3y5d
+    spec:
+      containers:
+        - name: tt3y5d
+          image: tt3y5d
+          ports:
+            - containerPort: 80

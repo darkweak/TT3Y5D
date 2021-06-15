@@ -4,9 +4,9 @@
 
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
-ARG PHP_VERSION=7.3
-ARG NGINX_VERSION=1.15
-ARG VARNISH_VERSION=6.0
+ARG PHP_VERSION=8.0
+ARG OPENRESTY_VERSION=1.15.8.3
+ARG VARNISH_VERSION=6.4
 
 
 # "php" stage
@@ -15,39 +15,35 @@ FROM php:${PHP_VERSION}-fpm-alpine AS api_platform_php
 # persistent / runtime deps
 RUN apk add --no-cache \
 		acl \
+		fcgi \
 		file \
 		gettext \
 		git \
-        freetype-dev \
-        libpng-dev  \
-        libjpeg-turbo-dev \
 	;
 
-ARG APCU_VERSION=5.1.17
+ARG APCU_VERSION=5.1.19
+
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps \
 		$PHPIZE_DEPS \
 		icu-dev \
-        freetype \
-        libpng \
-        libjpeg-turbo \
+		freetype-dev \
+		libjpeg-turbo \
+		libpng \
+		libjpeg-turbo-dev \
+		libpng-dev \
 		libzip-dev \
 		postgresql-dev \
 		zlib-dev \
 	; \
 	\
-	docker-php-ext-configure zip --with-libzip; \
-	docker-php-ext-configure gd \
-            --with-gd \
-            --with-freetype-dir=/usr/include/ \
-            --with-png-dir=/usr/include/ \
-            --with-jpeg-dir=/usr/include/; \
+	docker-php-ext-configure zip; \
+	docker-php-ext-configure gd --enable-gd --with-freetype; \
 	docker-php-ext-install -j$(nproc) \
-		gd \
-        iconv \
 		intl \
 		pdo_pgsql \
 		zip \
+		gd \
 	; \
 	pecl install \
 		apcu-${APCU_VERSION} \
@@ -68,9 +64,16 @@ RUN set -eux; \
 	\
 	apk del .build-deps
 
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+
 RUN ln -s $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
 COPY docker/php/conf.d/api-platform.ini $PHP_INI_DIR/conf.d/api-platform.ini
+
+RUN set -eux; \
+	{ \
+		echo '[www]'; \
+		echo 'ping.path = /ping'; \
+	} | tee /usr/local/etc/php-fpm.d/docker-healthcheck.conf
 
 # https://getcomposer.org/doc/03-cli.md#composer-allow-superuser
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -87,20 +90,22 @@ ARG APP_ENV=prod
 
 # prevent the reinstallation of vendors at every changes in the source code
 COPY composer.json composer.lock symfony.lock ./
-# do not use .env files in production
-RUN echo '<?php return [];' > .env.local.php
 RUN set -eux; \
-	composer install --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress --no-suggest; \
+	composer install --prefer-dist --no-dev --no-scripts --no-progress --no-suggest; \
 	composer clear-cache
 
 # copy only specifically what we need
+COPY .env ./
 COPY bin bin/
 COPY config config/
+#COPY migrations migrations/
 COPY public public/
 COPY src src/
+COPY templates templates/
 
 RUN set -eux; \
 	mkdir -p var/cache var/log; \
+	mkdir -p src/resources/images/signatures; \
 	composer dump-autoload --classmap-authoritative --no-dev; \
 	composer run-script --no-dev post-install-cmd; \
 	chmod +x bin/console; sync
@@ -115,17 +120,21 @@ CMD ["php-fpm"]
 
 # "nginx" stage
 # depends on the "php" stage above
-FROM nginx:${NGINX_VERSION}-alpine AS api_platform_nginx
+# The OpenResty distribution of NGINX is only needed for Kubernetes compatiblity (dynamic upstream resolution)
+FROM openresty/openresty:${OPENRESTY_VERSION}-alpine AS api_platform_nginx
 
+RUN echo -e "env UPSTREAM;\n$(cat /usr/local/openresty/nginx/conf/nginx.conf)" > /usr/local/openresty/nginx/conf/nginx.conf
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
 
-WORKDIR /srv/api
+WORKDIR /srv/api/public
 
-COPY --from=api_platform_php /srv/api/public public/
+COPY --from=api_platform_php /srv/api/public ./
 
 
 # "varnish" stage
 # does not depend on any of the above stages, but placed here to keep everything in one Dockerfile
-FROM cooptilleuls/varnish:${VARNISH_VERSION}-alpine AS api_platform_varnish
+FROM varnish:${VARNISH_VERSION} AS api_platform_varnish
 
-COPY docker/varnish/conf/default.vcl /usr/local/etc/varnish/default.vcl
+COPY docker/varnish/conf/default.vcl /etc/varnish/default.vcl
+
+CMD ["varnishd", "-F", "-f", "/etc/varnish/default.vcl", "-p", "http_resp_hdr_len=65536", "-p", "http_resp_size=98304"]

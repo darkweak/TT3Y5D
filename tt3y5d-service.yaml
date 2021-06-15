@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: tt3y5d
+spec:
+  ports:
+    - port: 80
+      name: web
+      protocol: TCP
+  selector:
+    app: tt3y5d
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: tt3y5d
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`192.168.1.200`) && PathPrefix(`/`)
+      services:
+        - name: tt3y5d
+          port: 80

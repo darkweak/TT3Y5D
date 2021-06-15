@@ -11,7 +11,7 @@ class ComponentPDF
 		header('Content-Type: image/png');
 
 		$save = PDF::BASE_RESOURCES.'images/'.$name.'.png';
-		imagepng($image, $save);
+		\imagepng($image, $save);
 
 		return $save;
 	}
@@ -83,7 +83,7 @@ class ComponentPDF
 
 	public function generateText($text, $size, $font = 'cantarell.regular.otf'): array
 	{
-		$type_space = imagettfbbox($size, 0, PDF::BASE_RESOURCES.$font, $text);
+		$type_space = \imagettfbbox($size, 0, PDF::BASE_RESOURCES.$font, $text);
 		return [
 			abs($type_space[4] - $type_space[0]),
 			abs($type_space[5] - $type_space[1])
