@@ -5,7 +5,7 @@
 
 # https://docs.docker.com/engine/reference/builder/#understand-how-arg-and-from-interact
 ARG PHP_VERSION=8.0
-ARG OPENRESTY_VERSION=1.15.8.3
+ARG OPENRESTY_VERSION=1.17.8.2
 ARG VARNISH_VERSION=6.4
 
 
@@ -121,7 +121,7 @@ CMD ["php-fpm"]
 # "nginx" stage
 # depends on the "php" stage above
 # The OpenResty distribution of NGINX is only needed for Kubernetes compatiblity (dynamic upstream resolution)
-FROM openresty/openresty:${OPENRESTY_VERSION}-alpine AS api_platform_nginx
+FROM openresty/openresty:${OPENRESTY_VERSION}-alpine-arm64v8 AS api_platform_nginx
 
 RUN echo -e "env UPSTREAM;\n$(cat /usr/local/openresty/nginx/conf/nginx.conf)" > /usr/local/openresty/nginx/conf/nginx.conf
 COPY docker/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
