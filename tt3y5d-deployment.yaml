@@ -16,12 +16,22 @@ spec:
     spec:
       containers:
         - name: tt3y5d-php
-          image: tt3y5d-php:latest
+          image: tt3y5d-php
           imagePullPolicy: Never
           ports:
             - containerPort: 9000
+          envFrom:
+            - secretRef:
+                name: tt3y5d-php-secret
         - name: tt3y5d-api
-          image: tt3y5d-api:latest
+          image: tt3y5d-api
           imagePullPolicy: Never
           ports:
             - containerPort: 80
+        - name: tt3y5d-db
+          image: postgres:9.6-alpine
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: tt3y5d-db-secret
