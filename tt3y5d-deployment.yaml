@@ -22,7 +22,7 @@ spec:
             - containerPort: 9000
           envFrom:
             - secretRef:
-                name: tt3y5d-php-secret
+                name: tt3y5d-secret
         - name: tt3y5d-api
           image: tt3y5d-api
           imagePullPolicy: Never
@@ -34,4 +34,4 @@ spec:
             - containerPort: 5432
           envFrom:
             - secretRef:
-                name: tt3y5d-db-secret
+                name: tt3y5d-secret
