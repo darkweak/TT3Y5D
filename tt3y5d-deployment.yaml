@@ -21,7 +21,7 @@ spec:
             - containerPort: 9000
           envFrom:
             - configMapRef:
-              name: tt3y5d-secret
+                name: tt3y5d-secret
           restartPolicy: Never
         - name: tt3y5d-api
           image: tt3y5d-api
@@ -30,7 +30,7 @@ spec:
             - containerPort: 80
           envFrom:
             - configMapRef:
-              name: tt3y5d-secret
+                name: tt3y5d-secret
           restartPolicy: Never
         - name: tt3y5d-db
           image: postgres:9.6-alpine
@@ -38,5 +38,5 @@ spec:
             - containerPort: 5432
           envFrom:
               - configMapRef:
-                name: tt3y5d-secret
+                  name: tt3y5d-secret
           restartPolicy: Never
