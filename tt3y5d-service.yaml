@@ -47,14 +47,13 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: tt3y5d
-  namespace: tt3y5d
+  name: ingressroute
 spec:
   entryPoints:
     - web
   routes:
     - kind: Rule
-      match: Host(`192.168.1.200`) && PathPrefix(`/`)
+      match: Host(`192.168.1.200`)
       services:
         - name: tt3y5d-api
           port: 80
