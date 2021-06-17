@@ -3,8 +3,6 @@ kind: Deployment
 metadata:
   name: tt3y5d
   namespace: tt3y5d
-  labels:
-    app: tt3y5d
 spec:
   replicas: 3
   selector:
