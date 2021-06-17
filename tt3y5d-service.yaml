@@ -1,3 +1,16 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: ingressroutes.traefik.containo.us
+spec:
+  group: traefik.containo.us
+  version: v1alpha1
+  names:
+    kind: IngressRoute
+    plural: ingressroutes
+    singular: ingressroute
+  scope: Namespaced
+---
 kind: Namespace
 apiVersion: v1
 metadata:
@@ -31,19 +44,7 @@ spec:
   selector:
     app: tt3y5d-db
 ---
-apiVersion: apiextensions.k8s.io/v1
-kind: CustomResourceDefinition
-metadata:
-  name: ingressroutes.traefik.containo.us
-spec:
-  group: traefik.containo.us
-  version: v1alpha1
-  names:
-    kind: IngressRoute
-    plural: ingressroutes
-    singular: ingressroute
-  scope: Namespaced
----
+apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: tt3y5d
