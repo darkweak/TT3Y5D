@@ -1,3 +1,10 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: tt3y5d
+  labels:
+    name: tt3y5d
+---
 kind: Service
 apiVersion: v1
 metadata:
