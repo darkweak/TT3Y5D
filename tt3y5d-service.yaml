@@ -13,6 +13,7 @@ spec:
   group: traefik.containo.us
   versions:
     - name: v1alpha1
+      served: true
   names:
     kind: IngressRoute
     plural: ingressroutes
