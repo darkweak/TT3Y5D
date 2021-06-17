@@ -1,17 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tt3y5d
+  name: tt3y5d-api
+  labels:
+    app: tt3y5d-api
   namespace: tt3y5d
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: tt3y5d
+      app: tt3y5d-api
   template:
     metadata:
       labels:
-        app: tt3y5d
+        app: tt3y5d-api
     spec:
       containers:
         - name: tt3y5d-php
@@ -30,10 +32,28 @@ spec:
           envFrom:
             - configMapRef:
                 name: tt3y5d-secret
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tt3y5d-db
+  labels:
+    app: tt3y5d-db
+  namespace: tt3y5d
+spec:
+  selector:
+    matchLabels:
+      app: tt3y5d-db
+  template:
+    metadata:
+      labels:
+        app: tt3y5d-db
+    spec:
+      containers:
         - name: tt3y5d-db
           image: postgres:9.6-alpine
           ports:
             - containerPort: 5432
           envFrom:
-              - configMapRef:
-                  name: tt3y5d-secret
+            - configMapRef:
+                name: tt3y5d-secret

@@ -8,15 +8,24 @@ metadata:
 kind: Service
 apiVersion: v1
 metadata:
-  name: tt3y5d
-  namespace: tt3y5d
+  name: tt3y5d-api
+  namespace: tt3y5d-api
 spec:
   ports:
     - port: 80
       name: web
       protocol: TCP
   selector:
-    app: tt3y5d
+    app: tt3y5d-api
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: tt3y5d-db
+  namespace: tt3y5d-db
+spec:
+  selector:
+    app: tt3y5d-db
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
