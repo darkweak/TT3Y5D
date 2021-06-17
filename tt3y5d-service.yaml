@@ -24,6 +24,10 @@ metadata:
   name: tt3y5d-db
   namespace: tt3y5d
 spec:
+  ports:
+    - port: 5432
+      name: web
+      protocol: TCP
   selector:
     app: tt3y5d-db
 ---
