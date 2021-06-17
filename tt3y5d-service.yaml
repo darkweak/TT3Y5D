@@ -9,7 +9,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: tt3y5d-api
-  namespace: tt3y5d-api
+  namespace: tt3y5d
 spec:
   ports:
     - port: 80
@@ -22,7 +22,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: tt3y5d-db
-  namespace: tt3y5d-db
+  namespace: tt3y5d
 spec:
   selector:
     app: tt3y5d-db
