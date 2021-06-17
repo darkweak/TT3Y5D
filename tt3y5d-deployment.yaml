@@ -27,16 +27,6 @@ spec:
           volumeMounts:
             - name: php-storage
               mountPath: /srv/api
-          volumes:
-            - name: php-storage
-              hostPath:
-                path: /home/sylvain/TT3Y5D/api
-            - name: api-storage
-              hostPath:
-                path: /home/sylvain/TT3Y5D/api/public
-            - name: nginx-storage
-              hostPath:
-                path: /home/sylvain/TT3Y5D/api/docker/nginx/conf.d/default.conf
         - name: tt3y5d-api
           image: tt3y5d-api
           imagePullPolicy: Never
