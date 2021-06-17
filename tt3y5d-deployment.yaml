@@ -43,13 +43,13 @@ spec:
       volumes:
         - name: php-storage
           hostPath:
-            path: ./api
+            path: /home/sylvain/TT3Y5D/api
         - name: api-storage
           hostPath:
-            path: ./api/public
+            path: /home/sylvain/TT3Y5D/api/public
         - name: nginx-storage
           hostPath:
-            path: ./docker/nginx/conf.d/default.conf
+            path: /home/sylvain/TT3Y5D/api/docker/nginx/conf.d/default.conf
 ---
 apiVersion: apps/v1
 kind: Deployment
