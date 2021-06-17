@@ -22,7 +22,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: tt3y5d-secret
-          restartPolicy: Never
         - name: tt3y5d-api
           image: tt3y5d-api
           imagePullPolicy: Never
@@ -31,7 +30,6 @@ spec:
           envFrom:
             - configMapRef:
                 name: tt3y5d-secret
-          restartPolicy: Never
         - name: tt3y5d-db
           image: postgres:9.6-alpine
           ports:
@@ -39,4 +37,3 @@ spec:
           envFrom:
               - configMapRef:
                   name: tt3y5d-secret
-          restartPolicy: Never
