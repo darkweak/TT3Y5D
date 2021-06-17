@@ -11,5 +11,5 @@ prepare-service: ## Prepare the service to be deployed
 deploy: ## Deploy
 	$(MAKE) prepare-service service=$(APP_NAME)-php target=api_platform_php
 	$(MAKE) prepare-service service=$(APP_NAME)-api target=api_platform_nginx
-	sudo kubectl delete -f $(APP_NAME)-deployment.yaml -f $(APP_NAME)-secret.yaml -f $(APP_NAME)-service.yaml || true
-	sudo kubectl create -f $(APP_NAME)-deployment.yaml -f $(APP_NAME)-secret.yaml -f $(APP_NAME)-service.yaml
+	sudo kubectl delete -f $(APP_NAME)-service.yaml -f $(APP_NAME)-secret.yaml -f $(APP_NAME)-deployment.yaml || true
+	sudo kubectl create -f $(APP_NAME)-service.yaml -f $(APP_NAME)-secret.yaml -f $(APP_NAME)-deployment.yaml
