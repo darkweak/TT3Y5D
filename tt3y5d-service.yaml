@@ -2,6 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: tt3y5d
+  namespace: tt3y5d
 spec:
   ports:
     - port: 80
@@ -14,6 +15,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: tt3y5d
+  namespace: tt3y5d
 spec:
   entryPoints:
     - web
