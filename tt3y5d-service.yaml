@@ -51,7 +51,7 @@ metadata:
   name: tt3y5d
   namespace: tt3y5d
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    kubernetes.io/ingress.class: "traefik"
 spec:
   entryPoints:
     - web
