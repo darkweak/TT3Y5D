@@ -43,7 +43,10 @@ spec:
   - host: 192.168.1.200
     http:
       paths:
-        -
+        - path: /
+          pathType: Prefix
           backend:
-            serviceName: tt3y5d-api
-            servicePort: http
+            service:
+              name: tt3y5d-api
+              port:
+                number: 80
