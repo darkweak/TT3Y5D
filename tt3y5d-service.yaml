@@ -13,8 +13,8 @@ metadata:
 spec:
   ports:
     - port: 80
+      targetPort: 80
       name: web
-      protocol: TCP
   selector:
     app: tt3y5d-api
 ---
@@ -37,12 +37,12 @@ metadata:
   name: tt3y5d
   namespace: tt3y5d
   annotations:
-    kubernetes.io/ingress.class: "traefik"
-    traefik.frontend.rule.type: Host(`192.168.1.200`)
+    kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - http:
+    - host: 192.168.1.200
+      http:
         paths:
-        - backend:
+          - backend:
             serviceName: tt3y5d-api
-            servicePort: 80
+            servicePort: http
