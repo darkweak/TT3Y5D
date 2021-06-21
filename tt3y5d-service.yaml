@@ -44,5 +44,5 @@ spec:
       http:
         paths:
           - backend:
-            serviceName: tt3y5d-api
-            servicePort: http
+              serviceName: tt3y5d-api
+              servicePort: http
