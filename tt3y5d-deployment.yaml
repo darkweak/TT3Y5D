@@ -37,13 +37,10 @@ spec:
                 name: tt3y5d-secret
           volumeMounts:
             - name: php-volume
-              type: Directory
               mountPath: /srv/api
             - name: api-volume
-              type: Directory
               mountPath: /srv/api/public
             - name: nginx-volume
-              type: File
               mountPath: /etc/nginx/conf.d/default.conf
       volumes:
         - name: nginx-volume
