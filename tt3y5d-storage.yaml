@@ -1,4 +1,4 @@
-kind: StorageClass
+kind: PersistentVolume
 apiVersion: storage.k8s.io/v1
 metadata:
   name: php-storage-pv
@@ -8,7 +8,7 @@ allowVolumeExpansion: true
 parameters:
   staleReplicaTimeout: "2880" # 48 hours in minutes
 ---
-kind: StorageClass
+kind: PersistentVolume
 apiVersion: storage.k8s.io/v1
 metadata:
   name: api-storage-pv
@@ -18,7 +18,7 @@ allowVolumeExpansion: true
 parameters:
   staleReplicaTimeout: "2880" # 48 hours in minutes
 ---
-kind: StorageClass
+kind: PersistentVolume
 apiVersion: storage.k8s.io/v1
 metadata:
   name: nginx-storage-pv
@@ -63,4 +63,3 @@ spec:
   resources:
     requests:
       storage: 2Mi
----
