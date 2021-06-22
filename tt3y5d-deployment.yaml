@@ -25,7 +25,7 @@ spec:
             - configMapRef:
                 name: tt3y5d-secret
           volumeMounts:
-            - name: php-storage
+            - name: php-volume
               mountPath: /srv/api
         - name: tt3y5d-api
           image: tt3y5d-api
@@ -36,8 +36,6 @@ spec:
             - configMapRef:
                 name: tt3y5d-secret
           volumeMounts:
-            - name: php-volume
-              mountPath: /srv/api
             - name: api-volume
               mountPath: /srv/api/public
             - name: nginx-volume
