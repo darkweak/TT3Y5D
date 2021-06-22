@@ -1,0 +1,66 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: php-storage-pv
+  namespace: tt3y5d
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+parameters:
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: api-storage-pv
+  namespace: tt3y5d
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+parameters:
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: nginx-storage-pv
+  namespace: tt3y5d
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+parameters:
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: php-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: php-storage-pv
+  resources:
+    requests:
+      storage: 500Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: api-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: api-storage-pv
+  resources:
+    requests:
+      storage: 5Mi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nginx-storage-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nginx-storage-pv
+  resources:
+    requests:
+      storage: 2Mi
+---
