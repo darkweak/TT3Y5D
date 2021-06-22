@@ -4,7 +4,7 @@ metadata:
   name: php-storage-pv
   namespace: tt3y5d
 provisioner: driver.longhorn.io
-allowVolumeExpansion: true
+#allowVolumeExpansion: true
 parameters:
   staleReplicaTimeout: "2880" # 48 hours in minutes
 ---
@@ -14,7 +14,7 @@ metadata:
   name: api-storage-pv
   namespace: tt3y5d
 provisioner: driver.longhorn.io
-allowVolumeExpansion: true
+#allowVolumeExpansion: true
 parameters:
   staleReplicaTimeout: "2880" # 48 hours in minutes
 ---
@@ -24,7 +24,7 @@ metadata:
   name: nginx-storage-pv
   namespace: tt3y5d
 provisioner: driver.longhorn.io
-allowVolumeExpansion: true
+#allowVolumeExpansion: true
 parameters:
   staleReplicaTimeout: "2880" # 48 hours in minutes
 ---
