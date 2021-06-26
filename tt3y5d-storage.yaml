@@ -86,6 +86,7 @@ spec:
         name: volume-migration
     spec:
       restartPolicy: Never
+      nodeName: manager0
       containers:
         - name: volume-migration
           image: ubuntu:xenial
