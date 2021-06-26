@@ -72,6 +72,7 @@ spec:
 ---
 apiVersion: batch/v1
 kind: Job
+nodeName: manager0
 metadata:
   namespace: tt3y5d
   name: data-population
@@ -86,7 +87,6 @@ spec:
         name: volume-migration
     spec:
       restartPolicy: Never
-      nodeName: manager0
       containers:
         - name: volume-migration
           image: ubuntu:xenial
