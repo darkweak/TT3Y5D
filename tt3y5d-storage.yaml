@@ -38,7 +38,7 @@ metadata:
   namespace: tt3y5d
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: php-storage-pv
   resources:
     requests:
