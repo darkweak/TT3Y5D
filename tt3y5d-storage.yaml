@@ -38,7 +38,7 @@ metadata:
   namespace: tt3y5d
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: php-storage-pv
   resources:
     requests:
@@ -51,7 +51,7 @@ metadata:
   namespace: tt3y5d
 spec:
   accessModes:
-    - ReadMany
+    - ReadWriteOnce
   storageClassName: api-storage-pv
   resources:
     requests:
@@ -64,7 +64,7 @@ metadata:
   namespace: tt3y5d
 spec:
   accessModes:
-    - ReadMany
+    - ReadWriteOnce
   storageClassName: nginx-storage-pv
   resources:
     requests:
