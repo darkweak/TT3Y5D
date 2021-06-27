@@ -72,7 +72,6 @@ spec:
 ---
 apiVersion: batch/v1
 kind: Job
-nodeName: manager0
 metadata:
   namespace: tt3y5d
   name: data-population
@@ -86,6 +85,7 @@ spec:
       labels:
         name: volume-migration
     spec:
+      nodeName: manager0
       restartPolicy: Never
       containers:
         - name: volume-migration
