@@ -96,7 +96,7 @@ spec:
             - /bin/sh
             - -c
             - >-
-              cp -rT /mnt/base/docker/nginx/conf.d/default.conf/. /mnt/nginx &&
+              cp -rT /mnt/base/docker/nginx/conf.d/. /mnt/nginx &&
               echo "Files copied for nginx" &&
               cp -rT /mnt/base/public/. /mnt/api &&
               echo "Files copied for api" &&
