@@ -96,12 +96,12 @@ spec:
             - /bin/sh
             - -c
             - >-
-              cp -rT /mnt/base/. /mnt/php &&
-              echo "Files copied for php" &&
+              cp -rT /mnt/base/docker/nginx/conf.d/default.conf/. /mnt/nginx &&
+              echo "Files copied for nginx" &&
               cp -rT /mnt/base/public/. /mnt/api &&
               echo "Files copied for api" &&
-              cp -rT /mnt/base/docker/nginx/conf.d/default.conf/. /mnt/nginx &&
-              echo "Files copied for nginx"
+              cp -rT /mnt/base/. /mnt/php &&
+              echo "Files copied for php"
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
