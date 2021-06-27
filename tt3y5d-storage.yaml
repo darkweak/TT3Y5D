@@ -97,7 +97,7 @@ spec:
             - -c
             - cp -rT /mnt/base/. /mnt/php
             - cp -r /mnt/base/public/* /mnt/api
-            - cp -r /mnt/base/api/docker/nginx/conf.d/default.conf/* /mnt/nginx/default.conf
+            - cp -r /mnt/base/api/docker/nginx/conf.d/default.conf/* /mnt/nginx
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
