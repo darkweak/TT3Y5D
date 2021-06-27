@@ -76,6 +76,8 @@ metadata:
   namespace: tt3y5d
   name: data-population
 spec:
+  completions: 1
+  parallelism: 1
   backoffLimit: 3
   template:
     metadata:
@@ -89,9 +91,7 @@ spec:
           image: ubuntu:xenial
           tty: true
           command: [ "/bin/sh" ]
-          args:
-            - -c
-            - scp -r /mnt/base /mnt/api && scp -r /mnt/base /mnt/nginx && scp -r /mnt/base /mnt/php
+          args: [ "-c", "scp -r /mnt/base /mnt/api && scp -r /mnt/base /mnt/nginx && scp -r /mnt/base /mnt/php" ]
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
