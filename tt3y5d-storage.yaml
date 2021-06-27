@@ -80,6 +80,7 @@ spec:
   parallelism: 1
   backoffLimit: 3
   template:
+    nodeName: manager0
     metadata:
       name: volume-migration
       labels:
@@ -87,8 +88,31 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - name: volume-migrate
+        - name: volume-migration
           image: ubuntu:xenial
           tty: true
           command: [ "/bin/sh" ]
-          args: [ "ls" ]
+          args: [ "-c", "scp -r /mnt/base /mnt/api && scp -r /mnt/base /mnt/nginx && scp -r /mnt/base /mnt/php" ]
+          volumeMounts:
+            - name: base-data
+              mountPath: /mnt/base
+            - name: php
+              mountPath: /mnt/php
+            - name: nginx
+              mountPath: /mnt/nginx
+            - name: api
+              mountPath: /mnt/api
+      volumes:
+        - name: base-data
+          hostPath:
+            path: /home/sylvain/TT3Y5D/api
+            type: Directory
+        - name: nginx
+          persistentVolumeClaim:
+            claimName: nginx-storage-pvc
+        - name: api
+          persistentVolumeClaim:
+            claimName: api-storage-pvc
+        - name: php
+          persistentVolumeClaim:
+            claimName: php-storage-pvc
