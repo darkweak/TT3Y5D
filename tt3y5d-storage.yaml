@@ -89,12 +89,12 @@ spec:
   parallelism: 1
   backoffLimit: 3
   template:
-    nodeName: manager0
     metadata:
       name: volume-migration
       labels:
         name: volume-migration
     spec:
+      nodeName: manager0
       restartPolicy: Never
       containers:
         - name: volume-migration
