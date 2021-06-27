@@ -92,9 +92,8 @@ spec:
           imagePullPolicy: IfNotPresent
           image: ubuntu:xenial
           tty: true
-          command: [ "/bin/sh" ]
-          args:
-            - -c
+          entrypoint: [ "/bin/sh", "-c" ]
+          command:
             - cp -rT /mnt/base/. /mnt/php &&
             - echo "Files copied for php" &&
             - cp -rT /mnt/base/public/. /mnt/api &&
