@@ -93,7 +93,11 @@ spec:
           image: ubuntu:xenial
           tty: true
           command: [ "/bin/sh" ]
-          args: [ "-c", "cp -r /mnt/base /mnt/api && cp -r /mnt/base /mnt/nginx && cp -r /mnt/base /mnt/php" ]
+          args:
+            - -c
+            - cp -r /mnt/base /mnt/php
+            - cp -r /mnt/base/public /mnt/api
+            - cp -r /mnt/base/api/docker/nginx/conf.d/default.conf /mnt/nginx/default.conf
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
