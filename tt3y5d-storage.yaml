@@ -76,8 +76,7 @@ metadata:
   namespace: tt3y5d
   name: data-population
 spec:
-  successfulJobsHistoryLimit: 0
-  failedJobsHistoryLimit: 0
+  activeDeadlineSeconds: 5
   completions: 1
   parallelism: 1
   backoffLimit: 3
@@ -89,7 +88,6 @@ spec:
     spec:
       nodeName: manager0
       restartPolicy: Never
-      concurrencyPolicy: Replace
       containers:
         - name: volume-migration
           imagePullPolicy: IfNotPresent
