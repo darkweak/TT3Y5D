@@ -92,26 +92,3 @@ spec:
           tty: true
           command: [ "/bin/sh" ]
           args: [ "ls" ]
-          volumeMounts:
-            - name: base-data
-              mountPath: /mnt/base
-            - name: php
-              mountPath: /mnt/php
-            - name: nginx
-              mountPath: /mnt/nginx
-            - name: api
-              mountPath: /mnt/api
-      volumes:
-        - name: base-data
-          hostPath:
-            path: /home/sylvain/TT3Y5D/api
-            type: Directory
-        - name: nginx
-          persistentVolumeClaim:
-            claimName: nginx-storage-pvc
-        - name: api
-          persistentVolumeClaim:
-            claimName: api-storage-pvc
-        - name: php
-          persistentVolumeClaim:
-            claimName: php-storage-pvc
