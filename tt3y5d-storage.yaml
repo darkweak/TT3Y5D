@@ -95,9 +95,10 @@ spec:
           command:
             - /bin/sh
             - -c
-            - echo "Files copied for php"
-            - echo "Files copied for api"
-            - echo "Files copied for nginx"
+            - >-
+              echo "Files copied for php" &&
+              echo "Files copied for api" &&
+              echo "Files copied for nginx"
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
