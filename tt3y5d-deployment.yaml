@@ -69,7 +69,8 @@ spec:
     spec:
       containers:
         - name: tt3y5d-db
-          image: postgres:9.6-alpine
+          image: postgres:13.3-alpine
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5432
           envFrom:
