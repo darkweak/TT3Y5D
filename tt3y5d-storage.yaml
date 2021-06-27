@@ -95,7 +95,7 @@ spec:
           command: [ "/bin/sh" ]
           args:
             - -c
-            - cp -r /mnt/base/* /mnt/php
+            - cp -r /mnt/base/* /mnt/php/
             - cp -r /mnt/base/.env /mnt/php/.env
             - cp -r /mnt/base/public/* /mnt/api
             - cp -r /mnt/base/api/docker/nginx/conf.d/default.conf/* /mnt/nginx/default.conf
