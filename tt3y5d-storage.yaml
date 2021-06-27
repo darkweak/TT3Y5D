@@ -96,11 +96,11 @@ spec:
           args:
             - -c
             - cp -rT /mnt/base/. /mnt/php
-            - echo "Files copied for php"
-            - cp -rT /mnt/base/public/. /mnt/api
-            - echo "Files copied for api"
-            - cp -rT /mnt/base/api/docker/nginx/conf.d/default.conf/. /mnt/nginx
-            - echo "Files copied for nginx"
+            - && echo "Files copied for php"
+            - && cp -rT /mnt/base/public/. /mnt/api
+            - && echo "Files copied for api"
+            - && cp -rT /mnt/base/api/docker/nginx/conf.d/default.conf/. /mnt/nginx
+            - && echo "Files copied for nginx"
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
