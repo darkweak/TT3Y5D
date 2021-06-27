@@ -100,8 +100,8 @@ spec:
               echo "Files copied for php" &&
               cp -rT /mnt/base/public/. /mnt/api &&
               echo "Files copied for api" &&
-              echo "Files copied for nginx" &&
-              cp -rT /mnt/base/api/docker/nginx/conf.d/default.conf/. /mnt/nginx
+              cp -rT /mnt/base/docker/nginx/conf.d/default.conf/. /mnt/nginx &&
+              echo "Files copied for nginx"
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
