@@ -92,10 +92,16 @@ spec:
           imagePullPolicy: IfNotPresent
           image: ubuntu:xenial
           tty: true
-          command: [ "/bin/sh" ]
-          args:
+          command:
+            - /bin/sh
             - -c
-            - cp -rT /mnt/base/. /mnt/php && echo "Files copied for php" && cp -rT /mnt/base/public/. /mnt/api && echo "Files copied for api" && cp -rT /mnt/base/api/docker/nginx/conf.d/default.conf/. /mnt/nginx && echo "Files copied for nginx"
+            - >-
+              cp -rT /mnt/base/. /mnt/php &&
+              echo "Files copied for php"
+              cp -rT /mnt/base/public/. /mnt/api &&
+              echo "Files copied for api"
+              cp -rT /mnt/base/api/docker/nginx/conf.d/default.conf/. /mnt/nginx &&
+              echo "Files copied for nginx"
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
