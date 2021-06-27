@@ -92,7 +92,9 @@ spec:
           image: ubuntu:xenial
           tty: true
           command: [ "/bin/sh" ]
-          args: [ "-c", "scp -r /mnt/base /mnt/api && scp -r /mnt/base /mnt/nginx && scp -r /mnt/base /mnt/php" ]
+          args:
+            - -c
+            - scp -r /mnt/base /mnt/api && scp -r /mnt/base /mnt/nginx && scp -r /mnt/base /mnt/php
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
