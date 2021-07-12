@@ -29,6 +29,8 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	if [ "$APP_ENV" != 'prod' ]; then
 		bin/console doctrine:schema:update --force --no-interaction
 	fi
+
+  bin/console ca:cl
 fi
 
 exec docker-php-entrypoint "$@"
