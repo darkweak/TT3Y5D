@@ -9,10 +9,10 @@ prepare-service: ## Prepare the service to be deployed
 	sudo k3s ctr images import /home/sylvain/$(service).tar
 
 exec: ## Exec kubectl action with files
-	sudo kubectl $(action) -f $(APP_NAME)-storage.yaml -f $(APP_NAME)-service.yaml -f $(APP_NAME)-secret.yaml -f $(APP_NAME)-deployment.yaml || true
+	sudo kubectl $(action) -f $(APP_NAME)-service.yaml -f $(APP_NAME)-storage.yaml -f $(APP_NAME)-secret.yaml -f $(APP_NAME)-deployment.yaml
 
 deploy: ## Deploy
 	$(MAKE) prepare-service service=$(APP_NAME)-php target=api_platform_php
 	$(MAKE) prepare-service service=$(APP_NAME)-api target=api_platform_nginx
-	$(MAKE) exec action=delete
+	$(MAKE) exec action=delete || true
 	$(MAKE) exec action=create
