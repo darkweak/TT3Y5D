@@ -14,5 +14,5 @@ exec: ## Exec kubectl action with files
 deploy: ## Deploy
 	$(MAKE) prepare-service service=$(APP_NAME)-php target=api_platform_php
 	$(MAKE) prepare-service service=$(APP_NAME)-api target=api_platform_nginx
-	$(MAKE) action=delete
-	$(MAKE) action=create
+	$(MAKE) exec action=delete
+	$(MAKE) exec action=create
