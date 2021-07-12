@@ -15,4 +15,4 @@ deploy: ## Deploy
 	$(MAKE) prepare-service service=$(APP_NAME)-php target=api_platform_php
 	$(MAKE) prepare-service service=$(APP_NAME)-api target=api_platform_nginx
 	$(MAKE) exec action=delete || true
-	$(MAKE) exec action=create
+	$(MAKE) exec action=apply
