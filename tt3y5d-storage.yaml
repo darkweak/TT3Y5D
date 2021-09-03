@@ -155,6 +155,9 @@ spec:
         - name: php
           persistentVolumeClaim:
             claimName: php-storage-pvc
+        - name: db
+          persistentVolumeClaim:
+            claimName: db-storage-pv
         - name: db-file
           hostPath:
             path: /home/sylvain/TT3Y5D/sample.sql

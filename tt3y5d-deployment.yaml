@@ -79,3 +79,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: tt3y5d-secret
+      volumes:
+        - name: db
+          persistentVolumeClaim:
+            claimName: db-storage-pv
