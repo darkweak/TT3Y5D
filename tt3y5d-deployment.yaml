@@ -72,7 +72,7 @@ spec:
           image: postgres:13.3-alpine
           imagePullPolicy: IfNotPresent
           volumeMounts:
-            - mountPath: /var/lib/postgresql/pgdata/sample.sql
+            - mountPath: /docker-entrypoint-initdb/init.sql
               name: db-sample
           ports:
             - containerPort: 5432
