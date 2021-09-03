@@ -72,14 +72,15 @@ spec:
           image: postgres:13.3-alpine
           imagePullPolicy: IfNotPresent
           volumeMounts:
-            - mountPath: /var/lib/postgresql/pgdata
-              name: db
+            - mountPath: /var/lib/postgresql/pgdata/sample.sql
+              name: db-sample
           ports:
             - containerPort: 5432
           envFrom:
             - configMapRef:
                 name: tt3y5d-secret
       volumes:
-        - name: db
-          persistentVolumeClaim:
-            claimName: db-storage-pvc
+        - name: db-sample
+          hostPath:
+            path: /home/sylvain/TT3Y5D/sample.sql
+            type: File
