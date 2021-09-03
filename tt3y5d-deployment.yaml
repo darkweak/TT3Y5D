@@ -71,6 +71,9 @@ spec:
         - name: tt3y5d-db
           image: postgres:13.3-alpine
           imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/pgdata
+              name: postgredb
           ports:
             - containerPort: 5432
           envFrom:

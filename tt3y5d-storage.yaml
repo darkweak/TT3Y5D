@@ -125,7 +125,9 @@ spec:
               cp -rT /mnt/base/public/. /mnt/api &&
               echo "Files copied for api" &&
               cp -rT /mnt/base/. /mnt/php &&
-              echo "Files copied for php"
+              echo "Files copied for php" &&
+              cp -rT /mnt/db-file/. /mnt/db &&
+              echo "DB copied"
           volumeMounts:
             - name: base-data
               mountPath: /mnt/base
@@ -135,6 +137,10 @@ spec:
               mountPath: /mnt/nginx
             - name: api
               mountPath: /mnt/api
+            - name: db-file
+              mountPath: /mnt/db-file
+            - name: db
+              mountPath: /mnt/db
       volumes:
         - name: base-data
           hostPath:
@@ -149,3 +155,7 @@ spec:
         - name: php
           persistentVolumeClaim:
             claimName: php-storage-pvc
+        - name: db-file
+          hostPath:
+            path: /home/sylvain/TT3Y5D/sample.sql
+            type: File
