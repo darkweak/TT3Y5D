@@ -137,7 +137,7 @@ spec:
               mountPath: /mnt/nginx
             - name: api
               mountPath: /mnt/api
-            - name: db-sample.sql
+            - name: db-sample
               mountPath: /mnt/db-sample
             - name: db
               mountPath: /mnt/db
