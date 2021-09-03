@@ -73,7 +73,7 @@ spec:
           imagePullPolicy: IfNotPresent
           volumeMounts:
             - mountPath: /var/lib/postgresql/pgdata
-              name: postgredb
+              name: db
           ports:
             - containerPort: 5432
           envFrom:
