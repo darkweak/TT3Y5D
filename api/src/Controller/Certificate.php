@@ -34,7 +34,7 @@ class Certificate extends Common
 
 			$listChoices = [
 				' présente un état de santé nécessitant un arrêt de travail de ',
-				" ne pourra fréquenter l'école, le collège, le lycée, pour cause de {$disease} pendant ",
+				" ne pourra fréquenter l'école, le collège, le lycée, l'université, pour cause de {$disease} pendant ",
 				" doit être dispensé d'éducation physique et sportive pendant ",
 				' est exempté de piscine pendant ',
 				"présente ce jour, une absence de signes clinique apparent contre-indiquant la pratique du sport suivant : {$sport}"
